@@ -2,6 +2,45 @@
 $is_auth = rand(0, 1);
 
 $user_name = 'Даниил'; // укажите здесь ваше имя
+
+
+$posts = [
+    [
+        'header' => 'Цитата',
+        'type' => 'post-quote',
+        'content' => 'Мы в жизни любим только раз, а после ищем лишь похожих',
+        'author' => 'Лариса',
+        'avatar' => 'userpic-larisa-small.jpg'
+    ],
+    [
+        'header' => 'Игра престолов',
+        'type' => 'post-text',
+        'content' => 'Не могу дождаться начала финального сезона своего любимого сериала!',
+        'author' => 'Владик',
+        'avatar' => 'userpic.jpg'
+    ],
+    [
+        'header' => 'Наконец, обработал фотки!',
+        'type' => 'post-photo',
+        'content' => 'rock-medium.jpg',
+        'author' => 'Виктор',
+        'avatar' => 'userpic-mark.jpg'
+    ],
+    [
+        'header' => 'Моя мечта',
+        'type' => 'post-photo',
+        'content' => 'coast-medium.jpg',
+        'author' => 'Лариса',
+        'avatar' => 'userpic-larisa-small.jpg'
+    ],
+    [
+        'header' => 'Лучшие курсы',
+        'type' => '	post-link',
+        'content' => 'www.htmlacademy.ru',
+        'author' => 'Владик',
+        'avatar' => 'userpic.jpg'
+    ]
+];
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -205,16 +244,19 @@ $user_name = 'Даниил'; // укажите здесь ваше имя
                 </ul>
             </div>
         </div>
+        <?php foreach ($posts as $key => $val): ?>
+        <?php if ($val['type'] == 'post-quote') : ?>
         <div class="popular__posts">
             <div class="visually-hidden" id="donor">
                 <!--содержимое для поста-цитаты-->
                 <blockquote>
                     <p>
                         <!--здесь текст-->
+                        <?=$val['content'];?>
                     </p>
                     <cite>Неизвестный Автор</cite>
                 </blockquote>
-
+                <?php  elseif ($val['type'] == 'post-link') : ?>
                 <!--содержимое для поста-ссылки-->
                 <div class="post-link__wrapper">
                     <a class="post-link__external" href="http://" title="Перейти по ссылке">
@@ -223,16 +265,16 @@ $user_name = 'Даниил'; // укажите здесь ваше имя
                                 <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
                             </div>
                             <div class="post-link__info">
-                                <h3><!--здесь заголовок--></h3>
+                                <h3><?=$val['header'];?></h3>
                             </div>
                         </div>
-                        <span><!--здесь ссылка--></span>
+                        <span><?=$val['content'];?></span>
                     </a>
                 </div>
-
+                <?php  elseif ($val['type'] == 'post-photo') : ?>
                 <!--содержимое для поста-фото-->
                 <div class="post-photo__image-wrapper">
-                    <img src="img/" alt="Фото от пользователя" width="360" height="240">
+                    <img src="img/<?=$val['content'];?>" alt="Фото от пользователя" width="360" height="240">
                 </div>
 
                 <!--содержимое для поста-видео-->
@@ -248,14 +290,14 @@ $user_name = 'Даниил'; // укажите здесь ваше имя
                         <span class="visually-hidden">Запустить проигрыватель</span>
                     </a>
                 </div>
-
+                <?php  elseif ($val['type'] == 'post-text') : ?>
                 <!--содержимое для поста-текста-->
-                <p><!--здесь текст--></p>
+                <p><?=$val['content'];?></p>
             </div>
 
-            <article class="popular__post post">
+            <article class="popular__post post" <?=$val['type'];?>>
                 <header class="post__header">
-                    <h2><!--здесь заголовок--></h2>
+                    <h2><?=$val['header'];?></h2>
                 </header>
                 <div class="post__main">
                     <!--здесь содержимое карточки-->
@@ -265,10 +307,10 @@ $user_name = 'Даниил'; // укажите здесь ваше имя
                         <a class="post__author-link" href="#" title="Автор">
                             <div class="post__avatar-wrapper">
                                 <!--укажите путь к файлу аватара-->
-                                <img class="post__author-avatar" src="img/" alt="Аватар пользователя">
+                                <img class="post__author-avatar" src="img/<?=$val['avatar'];?>" alt="Аватар пользователя">
                             </div>
                             <div class="post__info">
-                                <b class="post__author-name"><!--здесь имя пользоателя--></b>
+                                <b class="post__author-name"><?=$val['author'];?></b>
                                 <time class="post__time" datetime="">дата</time>
                             </div>
                         </a>
@@ -297,6 +339,8 @@ $user_name = 'Даниил'; // укажите здесь ваше имя
                 </footer>
             </article>
         </div>
+        <?php endif; ?>
+        <?php endforeach; ?>
     </div>
 </section>
 
