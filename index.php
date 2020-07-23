@@ -296,7 +296,29 @@ $posts = [
                         </div>
                     <?php  elseif ($val['type'] == 'post-text') : ?>
                     <!--содержимое для поста-текста-->
-                    <p><?=$val['content'];?></p>
+                    <?php
+                    function filltext ($text, $length = 300)
+                    {
+                        if (mb_strlen($text) <= $length) {
+                            return '<p>' . $text . '</p>';
+                        } else {
+                            $text = explode(' ', $text);
+                            $length_word = 0;
+                            foreach ($text as $word) {
+                                $length_word += (mb_strlen($word)) + 1;
+                                if ($length_word > 300) {
+                                    break;
+                                } else {
+                                    $text_sup[]= $word;
+                                }
+                            }
+                            return '<p>' . implode(' ', $text_sup) . '...</p><a class="post-text__more-link" href="#">Читать далее</a>';
+                        }
+                    }
+                    ?>
+
+                    <p><?=filltext($val['content']);?></p>
+
                 </div>
                 <footer class="post__footer">
                     <div class="post__author">
