@@ -1,6 +1,7 @@
 <?php
 require 'helpers.php';
 require 'data.php';
+
 $user_name = 'Даниил';
 
 $page__title = 'readme: популярное';
@@ -17,4 +18,4 @@ $layout_content = include_template('layout.php',
     ]);
 
 print($layout_content);
-?>
+
