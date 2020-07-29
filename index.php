@@ -10,12 +10,9 @@ $is_auth = rand(0, 1);
 
 $page_content = include_template('main.php', ['posts' => $posts]);
 
-$layout_content = include_template('layout.php',
+print $layout_content = include_template('layout.php',
     ['user_name' => $user_name,
         'page_title' => $page__title,
         'is_auth' => $is_auth,
         'page_content' => $page_content
     ]);
-
-print($layout_content);
-
