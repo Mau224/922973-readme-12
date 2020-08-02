@@ -100,7 +100,6 @@
                         </p>
                         <cite>Неизвестный Автор</cite>
                     </blockquote>
-<<<<<<< Updated upstream
                 <?php  elseif ($val['type'] == 'post-link') : ?>
                     <!--содержимое для поста-ссылки-->
                     <div class="post-link__wrapper">
@@ -135,9 +134,7 @@
                             <span class="visually-hidden">Запустить проигрыватель</span>
                         </a>
                     </div>
-=======
 
->>>>>>> Stashed changes
                 <?php  elseif ($val['type'] == 'post-text') : ?>
                     <!--содержимое для поста-текста-->
                     <?php
@@ -161,11 +158,6 @@
                     }
                     ?>
 
-<<<<<<< Updated upstream
-                    <p><?= filltext (htmlspecialchars($val['content']));?></p>
-
-                    </div>
-=======
                     <p>
                         <?= filltext(htmlspecialchars($val['content']));?>
                     </p>
@@ -175,6 +167,7 @@
                     <div class="post-photo__image-wrapper">
                         <img src="img/<?= htmlspecialchars($val['content']);?>" alt="Фото от пользователя" width="360" height="240">
                     </div>
+
                 <?php  elseif ($val['type'] == 'post-video') : ?>
                     <!--содержимое для поста-видео-->
                     <div class="post-video__block">
@@ -208,7 +201,6 @@
                 <?php endif; ?>
                     </div>
 
->>>>>>> Stashed changes
                     <footer class="post__footer">
                         <div class="post__author">
                             <a class="post__author-link" href="#" title="Автор">
@@ -244,12 +236,7 @@
                             </div>
                         </div>
                     </footer>
-<<<<<<< Updated upstream
-                    </article>
-                <?php endif; ?>
-=======
             </article>
->>>>>>> Stashed changes
             <?php endforeach; ?>
         </div>
     </div>
