@@ -23,17 +23,28 @@ $posts = [
     ],
     [
         'header' => 'Моя мечта',
+<<<<<<< Updated upstream
         'type' => 'post-photo',
+=======
+        'type' => 'post-video',
+>>>>>>> Stashed changes
         'content' => 'coast-medium.jpg',
         'author' => 'Лариса',
         'avatar' => 'userpic-larisa-small.jpg'
     ],
     [
         'header' => 'Лучшие курсы',
+<<<<<<< Updated upstream
         'type' => '	post-link',
+=======
+        'type' => 'post-link',
+>>>>>>> Stashed changes
         'content' => 'www.htmlacademy.ru',
         'author' => 'Владик',
         'avatar' => 'userpic.jpg'
     ]
 ];
+<<<<<<< Updated upstream
 ?>
+=======
+>>>>>>> Stashed changes

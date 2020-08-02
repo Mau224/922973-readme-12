@@ -100,6 +100,7 @@
                         </p>
                         <cite>Неизвестный Автор</cite>
                     </blockquote>
+<<<<<<< Updated upstream
                 <?php  elseif ($val['type'] == 'post-link') : ?>
                     <!--содержимое для поста-ссылки-->
                     <div class="post-link__wrapper">
@@ -134,6 +135,9 @@
                             <span class="visually-hidden">Запустить проигрыватель</span>
                         </a>
                     </div>
+=======
+
+>>>>>>> Stashed changes
                 <?php  elseif ($val['type'] == 'post-text') : ?>
                     <!--содержимое для поста-текста-->
                     <?php
@@ -157,9 +161,54 @@
                     }
                     ?>
 
+<<<<<<< Updated upstream
                     <p><?= filltext (htmlspecialchars($val['content']));?></p>
 
                     </div>
+=======
+                    <p>
+                        <?= filltext(htmlspecialchars($val['content']));?>
+                    </p>
+
+                <?php  elseif ($val['type'] == 'post-photo') : ?>
+                    <!--содержимое для поста-фото-->
+                    <div class="post-photo__image-wrapper">
+                        <img src="img/<?= htmlspecialchars($val['content']);?>" alt="Фото от пользователя" width="360" height="240">
+                    </div>
+                <?php  elseif ($val['type'] == 'post-video') : ?>
+                    <!--содержимое для поста-видео-->
+                    <div class="post-video__block">
+                        <div class="post-video__preview">
+                            <?//=embed_youtube_cover(/* вставьте ссылку на видео */); ?>
+                            <img src="img/<?= htmlspecialchars($val['content']);?>" alt="Превью к видео" width="360" height="188">
+                        </div>
+                        <a href="post-details.html" class="post-video__play-big button">
+                            <svg class="post-video__play-big-icon" width="14" height="14">
+                                <use xlink:href="#icon-video-play-big"></use>
+                            </svg>
+                            <span class="visually-hidden">Запустить проигрыватель</span>
+                        </a>
+                    </div>
+
+                <?php  elseif ($val['type'] == 'post-link') : ?>
+                    <!--содержимое для поста-ссылки-->
+                    <div class="post-link__wrapper">
+                        <a class="post-link__external" href="http://<?= htmlspecialchars($val['content']);?>" title="Перейти по ссылке">
+                            <div class="post-link__info-wrapper">
+                                <div class="post-link__icon-wrapper">
+                                    <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
+                                </div>
+                                <div class="post-link__info">
+                                    <h3><?=htmlspecialchars($val['header']);?></h3>
+                                </div>
+                            </div>
+                            <span></span>
+                        </a>
+                    </div>
+                <?php endif; ?>
+                    </div>
+
+>>>>>>> Stashed changes
                     <footer class="post__footer">
                         <div class="post__author">
                             <a class="post__author-link" href="#" title="Автор">
@@ -195,8 +244,12 @@
                             </div>
                         </div>
                     </footer>
+<<<<<<< Updated upstream
                     </article>
                 <?php endif; ?>
+=======
+            </article>
+>>>>>>> Stashed changes
             <?php endforeach; ?>
         </div>
     </div>
