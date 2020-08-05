@@ -86,7 +86,7 @@
         </div>
         <div class="popular__posts">
             <?php foreach ($posts as $key => $val): ?>
-            <article class="popular__post post" <?=$val['type'];?>>
+            <article class="popular__post post <?=$val['type'];?>">
                 <header class="post__header">
                     <h2><?= htmlspecialchars($val['header']);?></h2>
                 </header>
@@ -122,18 +122,18 @@
                     </div>
 
                     <!--содержимое для поста-видео-->
-                    <div class="post-video__block">
-                        <div class="post-video__preview">
-                            <?//=embed_youtube_cover(/* вставьте ссылку на видео */); ?>
-                            <img src="img/coast-medium.jpg" alt="Превью к видео" width="360" height="188">
-                        </div>
-                        <a href="post-details.html" class="post-video__play-big button">
-                            <svg class="post-video__play-big-icon" width="14" height="14">
-                                <use xlink:href="#icon-video-play-big"></use>
-                            </svg>
-                            <span class="visually-hidden">Запустить проигрыватель</span>
-                        </a>
-                    </div>
+<!--                    <div class="post-video__block">-->
+<!--                        <div class="post-video__preview">-->
+<!--                            --><?////=embed_youtube_cover(/* вставьте ссылку на видео */); ?>
+<!--                            <img src="img/coast-medium.jpg" alt="Превью к видео" width="360" height="188">-->
+<!--                        </div>-->
+<!--                        <a href="post-details.html" class="post-video__play-big button">-->
+<!--                            <svg class="post-video__play-big-icon" width="14" height="14">-->
+<!--                                <use xlink:href="#icon-video-play-big"></use>-->
+<!--                            </svg>-->
+<!--                            <span class="visually-hidden">Запустить проигрыватель</span>-->
+<!--                        </a>-->
+<!--                    </div>-->
 
                 <?php  elseif ($val['type'] == 'post-text') : ?>
                     <!--содержимое для поста-текста-->
@@ -165,7 +165,7 @@
                 <?php  elseif ($val['type'] == 'post-photo') : ?>
                     <!--содержимое для поста-фото-->
                     <div class="post-photo__image-wrapper">
-                        <img src="img/<?= htmlspecialchars($val['content']);?>" alt="Фото от пользователя" width="360" height="240">
+                        <img src="img/<?=htmlspecialchars($val['content']);?>" alt="Фото от пользователя" width="360" height="240">
                     </div>
 
                 <?php  elseif ($val['type'] == 'post-video') : ?>
@@ -199,7 +199,7 @@
                         </a>
                     </div>
                 <?php endif; ?>
-                    </div>
+                </div>
 
                     <footer class="post__footer">
                         <div class="post__author">

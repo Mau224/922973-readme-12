@@ -36,4 +36,3 @@ $posts = [
         'avatar' => 'userpic.jpg'
     ]
 ];
-
