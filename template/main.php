@@ -170,7 +170,7 @@
                                 </div>
                                 <div class="post__info">
                                     <b class="post__author-name"><?=$val['author'];?></b>
-                                    <time class="post__time" datetime="">дата</time>
+                                    <time class="post__time" datetime="" title="">дата</time>
                                 </div>
                             </a>
                         </div>

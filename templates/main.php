@@ -86,6 +86,7 @@
         </div>
         <div class="popular__posts">
             <?php foreach ($posts as $key => $val): ?>
+                <?php $post_date = generate_random_date($key); ?> <!--переменная с датой публикации -->
             <article class="popular__post post <?=$val['type'];?>">
                 <header class="post__header">
                     <h2><?= htmlspecialchars($val['header']);?></h2>
@@ -203,14 +204,14 @@
 
                     <footer class="post__footer">
                         <div class="post__author">
-                            <a class="post__author-link" href="#" title="Автор">
+                            <a class="post__author-link" href="#" title="<?= $post_date ?>">
                                 <div class="post__avatar-wrapper">
                                     <!--укажите путь к файлу аватара-->
                                     <img class="post__author-avatar" src="img/<?=$val['avatar'];?>" alt="Аватар пользователя">
                                 </div>
                                 <div class="post__info">
                                     <b class="post__author-name"><?=$val['author'];?></b>
-                                    <time class="post__time" datetime="">дата</time>
+                                    <time class="post__time" datetime="<?= date("d.m.Y H:i", strtotime($post_date)) ?>"><?=time_delta($post_date)?></time>
                                 </div>
                             </a>
                         </div>
