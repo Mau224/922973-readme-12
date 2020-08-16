@@ -680,13 +680,13 @@ var Dropzone = function (_Emitter) {
 
 
         /**
-         * A string that contains the template used for each dropped
+         * A string that contains the templates used for each dropped
          * file. Change it to fulfill your needs but make sure to properly
          * provide all elements.
          *
          * If you want to use an actual HTML element instead of providing a String
          * as a config option, you could create a div with the id `tpl`,
-         * put the template inside it and provide the element like this:
+         * put the templates inside it and provide the element like this:
          *
          *     document
          *       .querySelector('#tpl')
