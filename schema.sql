@@ -19,97 +19,42 @@ CREATE TABLE IF NOT EXISTS posts (
      `id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
      `post_header` VARCHAR(255),
      `post_content` TEXT,
-     `post_author_id` INT UNSIGNED NOT NULL,
-     `post_content_type_id` INT UNSIGNED NOT NULL,
+--       `user_id` INT UNSIGNED NOT NULL,
+     `content_type_name` INT UNSIGNED NOT NULL, -- in `content__type`
      `image` TEXT,
      `video` TEXT,
      `website_link` TEXT,
      `views_quantity` INT UNSIGNED DEFAULT 0,
-     `post_hashtag_id` INT UNSIGNED,
-     `creation_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
-
-     CONSTRAINT `post_author`
-     FOREIGN KEY (`post_author_id`) REFERENCES `users` (`id`)
-     ON UPDATE CASCADE
-     ON DELETE CASCADE,
-
-    CONSTRAINT `post_content_type`
-     FOREIGN KEY (`post_content_type_id`) REFERENCES `content_types` (`id`)
-         ON UPDATE CASCADE
-         ON DELETE CASCADE,
-
-    CONSTRAINT `post_hashtag`
-     FOREIGN KEY (`post_hashtag_id`) REFERENCES `hashtags` (`id`)
-         ON UPDATE CASCADE
-         ON DELETE CASCADE
+--      `hashtag_id` INT UNSIGNED,
+     `creation_date` DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
 CREATE TABLE IF NOT EXISTS comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     `comment_content` TEXT,
-    `comment_author_id` INT UNSIGNED NOT NULL,
-    `comment_post_id` INT UNSIGNED NOT NULL,
-    `creation_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT `comment_author`
-    FOREIGN KEY (`comment_author_id`) REFERENCES `users` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
-
-    CONSTRAINT `comment_post`
-        FOREIGN KEY (`comment_post_id`) REFERENCES `posts` (`id`)
-            ON UPDATE CASCADE
-            ON DELETE CASCADE
+--     `user_id` INT UNSIGNED NOT NULL,
+--     `post_id` INT UNSIGNED NOT NULL,
+    `creation_date` DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
 CREATE TABLE IF NOT EXISTS likes (
-      `like_author_id` INT UNSIGNED NOT NULL,
-      `like_post_id` INT UNSIGNED NOT NULL,
-
-
-      CONSTRAINT `like_author`
-          FOREIGN KEY (`like_author_id`) REFERENCES `users` (`id`)
-              ON UPDATE CASCADE
-              ON DELETE CASCADE,
-
-      CONSTRAINT `like_post`
-          FOREIGN KEY (`like_post_id`) REFERENCES `posts` (`id`)
-              ON UPDATE CASCADE
-              ON DELETE CASCADE
-
+      id INT AUTO_INCREMENT PRIMARY KEY,
+--       `user_id` INT UNSIGNED NOT NULL,
+      `count` INT
+--       `post_id` INT UNSIGNED NOT NULL
     );
 
-CREATE TABLE IF NOT EXISTS subs (
-    `subs_from_id` INT UNSIGNED NOT NULL,
-    `subs_to_id` INT UNSIGNED NOT NULL,
-
-    CONSTRAINT `subs_from`
-    FOREIGN KEY (`subs_from_id`) REFERENCES `users` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
-
-    CONSTRAINT `subs_to`
-        FOREIGN KEY (`subs_to_id`) REFERENCES `users` (`id`)
-            ON UPDATE CASCADE
-            ON DELETE CASCADE
+CREATE TABLE IF NOT EXISTS subscriptions (
+    `from_id` INT UNSIGNED NOT NULL,
+    `to_id` INT UNSIGNED NOT NULL
     );
 
 CREATE TABLE IF NOT EXISTS message (
     `id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    dt_add TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    content TEXT,
-    `sender_id` INT UNSIGNED NOT NULL,
-    `recipient_id` INT UNSIGNED NOT NULL,
-
-    CONSTRAINT `sender`
-    FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
-
-    CONSTRAINT `recipient`
-        FOREIGN KEY (`recipient_id`) REFERENCES `users` (`id`)
-            ON UPDATE CASCADE
-            ON DELETE CASCADE
+    `dt_add` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `content` TEXT
+--     `sender_id` INT UNSIGNED NOT NULL,
+--     `recipient_id` INT UNSIGNED NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `hashtags` (
