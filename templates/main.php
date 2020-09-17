@@ -87,120 +87,120 @@
         <div class="popular__posts">
             <?php foreach ($posts as $key => $val): ?>
                 <?php $post_date = generate_random_date($key); ?> <!--переменная с датой публикации -->
-            <article class="popular__post post <?=$val['type'];?>">
-                <header class="post__header">
-                    <h2><?= htmlspecialchars($val['header']);?></h2>
-                </header>
-                <div class="post__main">
-                <?php if ($val['type'] == 'post-quote') : ?>
-                    <!--здесь содержимое карточки-->
-                    <blockquote>
-                        <p>
-                            <!--здесь текст-->
-                            <?= htmlspecialchars($val['content']);?>
-                        </p>
-                        <cite>Неизвестный Автор</cite>
-                    </blockquote>
-                <?php  elseif ($val['type'] == 'post-link') : ?>
-                    <!--содержимое для поста-ссылки-->
-                    <div class="post-link__wrapper">
-                        <a class="post-link__external" href="http://" title="Перейти по ссылке">
-                            <div class="post-link__info-wrapper">
-                                <div class="post-link__icon-wrapper">
-                                    <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
-                                </div>
-                                <div class="post-link__info">
-                                    <h3><?=htmlspecialchars($val['header']);?></h3>
-                                </div>
+                <article class="popular__post post <?=$val['type'];?>">
+                    <header class="post__header">
+                        <h2><?= htmlspecialchars($val['header']);?></h2>
+                    </header>
+                    <div class="post__main">
+                        <?php if ($val['type'] == 'post-quote') : ?>
+                            <!--здесь содержимое карточки-->
+                            <blockquote>
+                                <p>
+                                    <!--здесь текст-->
+                                    <?= htmlspecialchars($val['content']);?>
+                                </p>
+                                <cite>Неизвестный Автор</cite>
+                            </blockquote>
+                        <?php  elseif ($val['type'] == 'post-link') : ?>
+                            <!--содержимое для поста-ссылки-->
+                            <div class="post-link__wrapper">
+                                <a class="post-link__external" href="http://" title="Перейти по ссылке">
+                                    <div class="post-link__info-wrapper">
+                                        <div class="post-link__icon-wrapper">
+                                            <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
+                                        </div>
+                                        <div class="post-link__info">
+                                            <h3><?=htmlspecialchars($val['header']);?></h3>
+                                        </div>
+                                    </div>
+                                    <span><?= htmlspecialchars($val['content']);?></span>
+                                </a>
                             </div>
-                            <span><?= htmlspecialchars($val['content']);?></span>
-                        </a>
-                    </div>
-                <?php  elseif ($val['type'] == 'post-photo') : ?>
-                    <!--содержимое для поста-фото-->
-                    <div class="post-photo__image-wrapper">
-                        <img src="img/<?= htmlspecialchars($val['content']);?>" alt="Фото от пользователя" width="360" height="240">
-                    </div>
+                        <?php  elseif ($val['type'] == 'post-photo') : ?>
+                            <!--содержимое для поста-фото-->
+                            <div class="post-photo__image-wrapper">
+                                <img src="img/<?= htmlspecialchars($val['content']);?>" alt="Фото от пользователя" width="360" height="240">
+                            </div>
 
-                    <!--содержимое для поста-видео-->
-<!--                    <div class="post-video__block">-->
-<!--                        <div class="post-video__preview">-->
-<!--                            --><?////=embed_youtube_cover(/* вставьте ссылку на видео */); ?>
-<!--                            <img src="img/coast-medium.jpg" alt="Превью к видео" width="360" height="188">-->
-<!--                        </div>-->
-<!--                        <a href="post-details.html" class="post-video__play-big button">-->
-<!--                            <svg class="post-video__play-big-icon" width="14" height="14">-->
-<!--                                <use xlink:href="#icon-video-play-big"></use>-->
-<!--                            </svg>-->
-<!--                            <span class="visually-hidden">Запустить проигрыватель</span>-->
-<!--                        </a>-->
-<!--                    </div>-->
+                            <!--содержимое для поста-видео-->
+                            <!--                    <div class="post-video__block">-->
+                            <!--                        <div class="post-video__preview">-->
+                            <!--                            --><?////=embed_youtube_cover(/* вставьте ссылку на видео */); ?>
+                            <!--                            <img src="img/coast-medium.jpg" alt="Превью к видео" width="360" height="188">-->
+                            <!--                        </div>-->
+                            <!--                        <a href="post-details.html" class="post-video__play-big button">-->
+                            <!--                            <svg class="post-video__play-big-icon" width="14" height="14">-->
+                            <!--                                <use xlink:href="#icon-video-play-big"></use>-->
+                            <!--                            </svg>-->
+                            <!--                            <span class="visually-hidden">Запустить проигрыватель</span>-->
+                            <!--                        </a>-->
+                            <!--                    </div>-->
 
-                <?php  elseif ($val['type'] == 'post-text') : ?>
-                    <!--содержимое для поста-текста-->
-                    <?php
-                    function filltext ($text, $length = 300)
-                    {
-                        if (mb_strlen($text) <= $length) {
-                            return '<p>' . $text . '</p>';
-                        } else {
-                            $text = explode(' ', $text);
-                            $length_word = 0;
-                            foreach ($text as $word) {
-                                $length_word += (mb_strlen($word)) + 1;
-                                if ($length_word > 300) {
-                                    break;
+                        <?php  elseif ($val['type'] == 'post-text') : ?>
+                            <!--содержимое для поста-текста-->
+                            <?php
+                            function filltext ($text, $length = 300)
+                            {
+                                if (mb_strlen($text) <= $length) {
+                                    return '<p>' . $text . '</p>';
                                 } else {
-                                    $text_sup[]= $word;
+                                    $text = explode(' ', $text);
+                                    $length_word = 0;
+                                    foreach ($text as $word) {
+                                        $length_word += (mb_strlen($word)) + 1;
+                                        if ($length_word > 300) {
+                                            break;
+                                        } else {
+                                            $text_sup[]= $word;
+                                        }
+                                    }
+                                    return '<p>' . implode(' ', $text_sup) . '...</p><a class="post-text__more-link" href="#">Читать далее</a>';
                                 }
                             }
-                            return '<p>' . implode(' ', $text_sup) . '...</p><a class="post-text__more-link" href="#">Читать далее</a>';
-                        }
-                    }
-                    ?>
+                            ?>
 
-                    <p>
-                        <?= filltext(htmlspecialchars($val['content']));?>
-                    </p>
+                            <p>
+                                <?= filltext(htmlspecialchars($val['content']));?>
+                            </p>
 
-                <?php  elseif ($val['type'] == 'post-photo') : ?>
-                    <!--содержимое для поста-фото-->
-                    <div class="post-photo__image-wrapper">
-                        <img src="img/<?=htmlspecialchars($val['content']);?>" alt="Фото от пользователя" width="360" height="240">
-                    </div>
-
-                <?php  elseif ($val['type'] == 'post-video') : ?>
-                    <!--содержимое для поста-видео-->
-                    <div class="post-video__block">
-                        <div class="post-video__preview">
-                            <?//=embed_youtube_cover(/* вставьте ссылку на видео */); ?>
-                            <img src="img/<?= htmlspecialchars($val['content']);?>" alt="Превью к видео" width="360" height="188">
-                        </div>
-                        <a href="post-details.html" class="post-video__play-big button">
-                            <svg class="post-video__play-big-icon" width="14" height="14">
-                                <use xlink:href="#icon-video-play-big"></use>
-                            </svg>
-                            <span class="visually-hidden">Запустить проигрыватель</span>
-                        </a>
-                    </div>
-
-                <?php  elseif ($val['type'] == 'post-link') : ?>
-                    <!--содержимое для поста-ссылки-->
-                    <div class="post-link__wrapper">
-                        <a class="post-link__external" href="http://<?= htmlspecialchars($val['content']);?>" title="Перейти по ссылке">
-                            <div class="post-link__info-wrapper">
-                                <div class="post-link__icon-wrapper">
-                                    <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
-                                </div>
-                                <div class="post-link__info">
-                                    <h3><?=htmlspecialchars($val['header']);?></h3>
-                                </div>
+                        <?php  elseif ($val['type'] == 'post-photo') : ?>
+                            <!--содержимое для поста-фото-->
+                            <div class="post-photo__image-wrapper">
+                                <img src="img/<?=htmlspecialchars($val['content']);?>" alt="Фото от пользователя" width="360" height="240">
                             </div>
-                            <span></span>
-                        </a>
+
+                        <?php  elseif ($val['type'] == 'post-video') : ?>
+                            <!--содержимое для поста-видео-->
+                            <div class="post-video__block">
+                                <div class="post-video__preview">
+                                    <?//=embed_youtube_cover(/* вставьте ссылку на видео */); ?>
+                                    <img src="img/<?= htmlspecialchars($val['content']);?>" alt="Превью к видео" width="360" height="188">
+                                </div>
+                                <a href="post-details.html" class="post-video__play-big button">
+                                    <svg class="post-video__play-big-icon" width="14" height="14">
+                                        <use xlink:href="#icon-video-play-big"></use>
+                                    </svg>
+                                    <span class="visually-hidden">Запустить проигрыватель</span>
+                                </a>
+                            </div>
+
+                        <?php  elseif ($val['type'] == 'post-link') : ?>
+                            <!--содержимое для поста-ссылки-->
+                            <div class="post-link__wrapper">
+                                <a class="post-link__external" href="http://<?= htmlspecialchars($val['content']);?>" title="Перейти по ссылке">
+                                    <div class="post-link__info-wrapper">
+                                        <div class="post-link__icon-wrapper">
+                                            <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
+                                        </div>
+                                        <div class="post-link__info">
+                                            <h3><?=htmlspecialchars($val['header']);?></h3>
+                                        </div>
+                                    </div>
+                                    <span></span>
+                                </a>
+                            </div>
+                        <?php endif; ?>
                     </div>
-                <?php endif; ?>
-                </div>
 
                     <footer class="post__footer">
                         <div class="post__author">
@@ -237,7 +237,7 @@
                             </div>
                         </div>
                     </footer>
-            </article>
+                </article>
             <?php endforeach; ?>
         </div>
     </div>
