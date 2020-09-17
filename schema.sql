@@ -90,4 +90,34 @@ CREATE TABLE IF NOT EXISTS message (
 
 
 
+/* Получить список постов с сортировкой по популярности и вместе с именами авторов и типом контента */
+SELECT  p.publishedAt,
+        p.title,
+        p.content,
+        p.image,
+        p.video,
+        p.link,
+        p.views,
+        u.login AS user_login
+FROM post AS p
+         INNER JOIN user AS u ON p.user_id = u.id
+ORDER BY p.views DESC, p.id ASC;
 
+/* Получить список постов для конкретного пользователя */
+SELECT  p.publishedAt,
+        p.title,
+        p.content,
+        p.image,
+        p.video,
+        p.link,
+        p.views
+FROM post AS p
+WHERE p.user_id = 1;
+
+/* Получить список комментариев для одного поста (1), в комментариях должен быть логин пользователя */
+SELECT  c.publishedAt AS comment_date,
+        c.content AS comment,
+        u.login AS user_login
+FROM comment AS c
+         INNER JOIN user AS u ON c.user_id = u.id
+WHERE c.post_id = 1
