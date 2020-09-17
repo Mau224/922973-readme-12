@@ -1,69 +1,93 @@
 CREATE DATABASE IF NOT EXISTS `267983-readme-12`
-DEFAULT CHARACTER SET utf8
-DEFAULT COLLATE utf8_general_ci;
+    DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 
 USE `267983-readme-12`;
 
+CREATE TABLE IF NOT EXISTS user (
+    id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
+    registrationAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    email VARCHAR(128) NOT NULL UNIQUE,
+    login VARCHAR(128) NOT NULL UNIQUE,
+    password VARCHAR(128) NOT NULL,
+    avatar VARCHAR(255),
+    INDEX (email, login)
+);
 
-
-CREATE TABLE IF NOT EXISTS users (
-    `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `email` VARCHAR(128) NOT NULL UNIQUE,
-    `name` VARCHAR(128) NOT NULL UNIQUE,
-    `password` char(30) NOT NULL,
-    `avatar` VARCHAR(255),
-    `registration_date` DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
-
-CREATE TABLE IF NOT EXISTS posts (
-     `id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-     `post_header` VARCHAR(255),
-     `post_content` TEXT,
---       `user_id` INT UNSIGNED NOT NULL,
-     `content_type_name` INT UNSIGNED NOT NULL, -- in `content__type`
-     `image` TEXT,
-     `video` TEXT,
-     `website_link` TEXT,
-     `views_quantity` INT UNSIGNED DEFAULT 0,
---      `hashtag_id` INT UNSIGNED,
-     `creation_date` DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
-
-CREATE TABLE IF NOT EXISTS comments (
+CREATE TABLE post_types (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    `comment_content` TEXT,
---     `user_id` INT UNSIGNED NOT NULL,
---     `post_id` INT UNSIGNED NOT NULL,
-    `creation_date` DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
+    name VARCHAR(30) UNIQUE,
+    class VARCHAR(10) UNIQUE
+);
 
-CREATE TABLE IF NOT EXISTS likes (
-      id INT AUTO_INCREMENT PRIMARY KEY,
---       `user_id` INT UNSIGNED NOT NULL,
-      `count` INT
---       `post_id` INT UNSIGNED NOT NULL
-    );
+CREATE TABLE IF NOT EXISTS post (
+    id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
+    publishedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    title VARCHAR(255) NOT NULL UNIQUE,
+    content TEXT NOT NULL,
+    user_id INT NOT NULL,
+    image VARCHAR(255),
+    video VARCHAR(255),
+    link VARCHAR(255),
+    views INT NOT NULL DEFAULT 0,
+    types INT NOT NULL,
+    UNIQUE INDEX (id, title),
+    INDEX (user_id),
+    post_type_id INT REFERENCES post_types (id)
+);
 
-CREATE TABLE IF NOT EXISTS subscriptions (
-    `from_id` INT UNSIGNED NOT NULL,
-    `to_id` INT UNSIGNED NOT NULL
-    );
+CREATE TABLE IF NOT EXISTS hashtag (
+   id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
+   name VARCHAR(255) NOT NULL,
+   UNIQUE INDEX (id)
+);
+
+CREATE TABLE IF NOT EXISTS post_hashtag (
+    post_id INT NOT NULL ,
+    hashtag_id INT NOT NULL,
+    INDEX (post_id, hashtag_id),
+    FOREIGN KEY (hashtag_id) REFERENCES hashtag(id)
+);
+
+CREATE TABLE IF NOT EXISTS comment (
+   id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
+   publishedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   content TEXT NOT NULL,
+   user_id INT NOT NULL,
+   post_id INT NOT NULL,
+   UNIQUE INDEX (id),
+   INDEX (user_id, post_id),
+   FOREIGN KEY (user_id) REFERENCES user(id),
+   FOREIGN KEY (post_id) REFERENCES post(id)
+);
+
+CREATE TABLE IF NOT EXISTS `like` (
+  user_id INT NOT NULL,
+  post_id INT NOT NULL,
+  INDEX (user_id, post_id),
+  FOREIGN KEY (user_id) REFERENCES user(id),
+  FOREIGN KEY (post_id) REFERENCES post(id)
+);
+
+CREATE TABLE IF NOT EXISTS subscription (
+    user_id INT NOT NULL,
+    subscription_id INT NOT NULL,
+    INDEX (user_id, subscription_id),
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (subscription_id) REFERENCES user(id)
+);
 
 CREATE TABLE IF NOT EXISTS message (
-    `id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `dt_add` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `content` TEXT
---     `sender_id` INT UNSIGNED NOT NULL,
---     `recipient_id` INT UNSIGNED NOT NULL
+   id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
+   publishedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   content TEXT NOT NULL,
+   sender_id INT NOT NULL,
+   recipient_id INT NOT NULL,
+   UNIQUE INDEX (id),
+   INDEX (sender_id, recipient_id),
+   FOREIGN KEY (sender_id) REFERENCES user(id),
+   FOREIGN KEY (recipient_id) REFERENCES user(id)
 );
 
-CREATE TABLE IF NOT EXISTS `hashtags` (
-  `id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `hashtag_name` VARCHAR(100)
-);
 
-CREATE TABLE IF NOT EXISTS `content_types` (
-   `id` INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-   `content_type_name` ENUM('Текст', 'Цитата', 'Картинка', 'Видео', 'Ссылка'),
-   `icon_class_name` ENUM('photo', 'video', 'text', 'quote', 'link')
-);
+
+
