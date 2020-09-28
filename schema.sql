@@ -115,8 +115,7 @@ WHERE p.user_id = 1;
 
 /* Получить список комментариев для одного поста (1), в комментариях должен быть логин пользователя */
 SELECT  c.publishedAt AS comment_date,
-        c.content AS comment,
-        u.login AS user_login
+        c.content AS comment
 FROM comment AS c
          INNER JOIN user AS u ON c.user_id = u.id
 WHERE c.post_id = 1
