@@ -8,9 +8,9 @@ VALUES
 
 INSERT INTO users (email, login, password, avatar)
 VALUES
-    ('name_email1@gmail.com', 'Cаша', 'password1', 'userpic-larisa-small.jpg'),
-    ('name_email2@gmail.com', 'Федя', 'password2', 'userpic.jpg'),
-    ('name_email3@gmail.com', 'Толя', 'password3', 'userpic-mark.jpg');
+    ('name_email1@gmail.com', 'Cаша', SHA1('password1'), 'userpic-larisa-small.jpg'),
+    ('name_email2@gmail.com', 'Федя', SHA1('password2'), 'userpic.jpg'),
+    ('name_email3@gmail.com', 'Толя', SHA1('password3'), 'userpic-mark.jpg');
 
 INSERT INTO posts (title, content, user_id, image, video, link, views, types)
 VALUES

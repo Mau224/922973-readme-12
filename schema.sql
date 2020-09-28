@@ -97,10 +97,9 @@ SELECT  p.publishedAt,
         p.image,
         p.video,
         p.link,
-        p.views,
-        u.login AS user_login
+        p.views
 FROM post AS p
-         INNER JOIN user AS u ON p.user_id = u.id
+         LEFT JOIN user AS u ON p.user_id = u.id
 ORDER BY p.views DESC, p.id ASC;
 
 /* Получить список постов для конкретного пользователя */
