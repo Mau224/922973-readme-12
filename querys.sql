@@ -5,12 +5,12 @@ VALUES
     ('Фото', 'photo'),
     ('Видео', 'video'),
     ('Ссылка', 'link');
-
+-- password1 = aee1521b54bb5b391688a45096c944de
 INSERT INTO users (email, login, password, avatar)
 VALUES
-    ('name_email1@gmail.com', 'Cаша', SHA1('password1'), 'userpic-larisa-small.jpg'),
-    ('name_email2@gmail.com', 'Федя', SHA1('password2'), 'userpic.jpg'),
-    ('name_email3@gmail.com', 'Толя', SHA1('password3'), 'userpic-mark.jpg');
+    ('name_email1@gmail.com', 'Cаша', 'aee1521b54bb5b391688a45096c944de', 'userpic-larisa-small.jpg'),
+    ('name_email2@gmail.com', 'Федя', 'aee1521b54bb5b391688a45096c944de', 'userpic.jpg'),
+    ('name_email3@gmail.com', 'Толя', 'aee1521b54bb5b391688a45096c944de', 'userpic-mark.jpg');
 
 INSERT INTO posts (title, content, user_id, image, video, link, views, types)
 VALUES
