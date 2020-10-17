@@ -10,6 +10,58 @@ $page__title = 'readme: популярное';
 
 $is_auth = rand(0, 1);
 
+require_once 'connection.php'; // подключаем скрипт
+
+$post_index = $_GET['id'] ?? '';
+
+// подключаемся к серверу
+$connect = mysqli_connect($host, $user, $password, $database);
+mysqli_set_charset($connect, "utf8");
+
+$ind = $_GET['id'] ?? '';
+print_r($ind);
+
+/**
+ * return content type from db
+ * @param object $link
+ * @return array
+ */
+function getContent(object $link)
+{
+    if (!$link) {
+        $error = mysqli_connect_error();
+        print($error);
+    } else {
+        $sql = 'SELECT id, name, class FROM post_types';
+        $result = mysqli_query($link, $sql);
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    };
+};
+
+/**
+ * return posts from db
+ * @param object $link
+ * @param string $id
+ * @return array
+ */
+function getPosts(object $link, string $id): array
+{
+    if (!$link) {
+        $error = mysqli_connect_error();
+        print($error);
+    } else {
+        if ($id) {
+            $sql = "SELECT post.id as post_id, publishedAt, post.title, content, image, video, link, types,  name FROM post INNER JOIN user ON post.user_id = users.id INNER JOIN post_types ON post.post_type_id = post_types.id WHERE post_types.id = $id ORDER BY post.views DESC ";
+        } else {
+            $sql = "SELECT post.id as post_id, publishedAt, post.title, content, image, video, link, types, name FROM post INNER JOIN user ON post.user_id = users.id INNER JOIN post_types ON post.post_type_id = post_types.id  ORDER BY post.view DESC ";
+        }
+        $result = mysqli_query($link, $sql);
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    };
+}
+
+;
+// закрываем подключение
 
 function time_delta($post_time){
     $end_ts = strtotime($post_time);
@@ -40,7 +92,7 @@ function time_delta($post_time){
     }
 
 }
-$page_content = include_template('main.php', ['posts' => $posts]);
+$page_content = include_template('/main.php', ['posts' => getPosts($connect, $ind), 'post__type' => getContent($connect), 'ind' => $ind]);
 
 print $layout_content = include_template('layout.php',
     ['user_name' => $user_name,

@@ -6,13 +6,13 @@ VALUES
     ('Видео', 'video'),
     ('Ссылка', 'link');
 -- password1 = aee1521b54bb5b391688a45096c944de
-INSERT INTO users (email, login, password, avatar)
+INSERT INTO user (email, login, password, avatar)
 VALUES
     ('name_email1@gmail.com', 'Cаша', 'aee1521b54bb5b391688a45096c944de', 'userpic-larisa-small.jpg'),
     ('name_email2@gmail.com', 'Федя', 'aee1521b54bb5b391688a45096c944de', 'userpic.jpg'),
     ('name_email3@gmail.com', 'Толя', 'aee1521b54bb5b391688a45096c944de', 'userpic-mark.jpg');
 
-INSERT INTO posts (title, content, user_id, image, video, link, views, types)
+INSERT INTO post (title, content, user_id, image, video, link, views, types)
 VALUES
     ('Цитата', 'Мы в жизни любим только раз, а после ищем лишь похожих', 1, NULL, NULL, NULL, 7, 2),
     ('Игра престолов', 'Не могу дождаться начала финального сезона своего любимого сериала!', 2, NULL, NULL, NULL, 5, 2),
@@ -20,7 +20,7 @@ VALUES
     ('Моя мечта', NULL, 4, NULL, 'coast-medium.jpg', NULL, 8, 4),
     ('Лучшие курсы', 'Лучшие курсs', 5, NULL, NULL, 'www.htmlacademy.ru', 1, 5);
 
-INSERT INTO comments (content, user_id, post_id)
+INSERT INTO comment (content, user_id, post_id)
 VALUES
     ('Комментарий1 к цитате', 1, 1),
     ('Комментарий2 к цитате', 2, 1),
@@ -41,20 +41,10 @@ VALUES
 INSERT INTO likes (user_id, post_id)
 VALUES
     (1, 1),
-    (3, 1),
-    (2, 1),
     (3, 2),
-    (2, 2),
-    (1, 3),
-    (2, 4),
-    (3, 5);
+    (2, 3),
 
 INSERT INTO subscriptions (user_id, subscription_id)
 VALUES
     (2, 1),
-    (1, 2),
-    (3, 1),
-    (3, 2),
-    (1, 3),
-    (1, 2);
 
