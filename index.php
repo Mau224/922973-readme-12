@@ -10,57 +10,36 @@ $page__title = 'readme: популярное';
 
 $is_auth = rand(0, 1);
 
-require_once 'connection.php'; // подключаем скрипт
+//require_once 'connection.php'; // подключаем скрипт
 
-$post_index = $_GET['id'] ?? '';
+$link = mysqli_connect("localhost", "root", "root", "readme");
+mysqli_set_charset($link, "utf8");
 
-// подключаемся к серверу
-$connect = mysqli_connect($host, $user, $password, $database);
-mysqli_set_charset($connect, "utf8");
+if (!$link) {
+    $error = mysqli_connect_error($link);
+    print($error);
+}
+else {
+    $query_types_content = "SELECT id, name, class FROM post_types";
+    $result_types_content = mysqli_query ($link, $query_types_content);
 
-$ind = $_GET['id'] ?? '';
-print_r($ind);
+    if ($result_types_content) {
+        $types_content = mysqli_fetch_all ($result_types_content, MYSQLI_ASSOC);
+    }
 
-/**
- * return content type from db
- * @param object $link
- * @return array
- */
-function getContent(object $link)
-{
-    if (!$link) {
-        $error = mysqli_connect_error();
-        print($error);
-    } else {
-        $sql = 'SELECT id, name, class FROM post_types';
-        $result = mysqli_query($link, $sql);
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
-    };
-};
+    $query_popular_posts = "SELECT title, content, publishedAt, user_id, image, video, link, login, types, avatar
+                               FROM posts p
+                               LEFT JOIN users u ON p.user_id = u.id
+                               LEFT JOIN post_types pt ON p.post_type = pt.id
+                               ORDER BY views DESC
+                               LIMIT 6";
+    $result_popular_posts = mysqli_query ($link, $query_popular_posts);
 
-/**
- * return posts from db
- * @param object $link
- * @param string $id
- * @return array
- */
-function getPosts(object $link, string $id): array
-{
-    if (!$link) {
-        $error = mysqli_connect_error();
-        print($error);
-    } else {
-        if ($id) {
-            $sql = "SELECT post.id as post_id, publishedAt, post.title, content, image, video, link, types,  name FROM post INNER JOIN user ON post.user_id = users.id INNER JOIN post_types ON post.post_type_id = post_types.id WHERE post_types.id = $id ORDER BY post.views DESC ";
-        } else {
-            $sql = "SELECT post.id as post_id, publishedAt, post.title, content, image, video, link, types, name FROM post INNER JOIN user ON post.user_id = users.id INNER JOIN post_types ON post.post_type_id = post_types.id  ORDER BY post.view DESC ";
-        }
-        $result = mysqli_query($link, $sql);
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
-    };
+    if ($result_popular_posts) {
+        $popular_posts = mysqli_fetch_all ($result_popular_posts, MYSQLI_ASSOC);
+    }
 }
 
-;
 // закрываем подключение
 
 function time_delta($post_time){
