@@ -6,8 +6,8 @@ USE `267983-readme-12`;
 CREATE TABLE IF NOT EXISTS user (
     id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
     registrationAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    email VARCHAR(128) NOT NULL UNIQUE,
-    login VARCHAR(128) NOT NULL UNIQUE,
+    email VARCHAR(128) NOT NULL,
+    login VARCHAR(128) NOT NULL,
     password VARCHAR(128) NOT NULL,
     avatar VARCHAR(255),
     INDEX (email, login)
@@ -15,15 +15,15 @@ CREATE TABLE IF NOT EXISTS user (
 
 CREATE TABLE post_types (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(30) UNIQUE,
-    class VARCHAR(10) UNIQUE
+    name VARCHAR(30),
+    class VARCHAR(10)
 );
 
 CREATE TABLE IF NOT EXISTS post (
     id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
     publishedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    title VARCHAR(255) NOT NULL UNIQUE,
-    content TEXT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    content TEXT,
     user_id INT NOT NULL,
     image VARCHAR(255),
     video VARCHAR(255),
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS comment (
    FOREIGN KEY (post_id) REFERENCES post(id)
 );
 
-CREATE TABLE IF NOT EXISTS `like` (
+CREATE TABLE IF NOT EXISTS `likes` (
   user_id INT NOT NULL,
   post_id INT NOT NULL,
   INDEX (user_id, post_id),
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `like` (
   FOREIGN KEY (post_id) REFERENCES post(id)
 );
 
-CREATE TABLE IF NOT EXISTS subscription (
+CREATE TABLE IF NOT EXISTS subscriptions (
     user_id INT NOT NULL,
     subscription_id INT NOT NULL,
     INDEX (user_id, subscription_id),

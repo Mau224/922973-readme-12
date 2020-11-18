@@ -10,6 +10,37 @@ $page__title = 'readme: популярное';
 
 $is_auth = rand(0, 1);
 
+//require_once 'connection.php'; // подключаем скрипт
+
+$link = mysqli_connect("localhost", "root", "root", "readme");
+mysqli_set_charset($link, "utf8");
+
+if (!$link) {
+    $error = mysqli_connect_error($link);
+    print($error);
+}
+else {
+    $query_types_content = "SELECT id, name, class FROM post_types";
+    $result_types_content = mysqli_query ($link, $query_types_content);
+
+    if ($result_types_content) {
+        $types_content = mysqli_fetch_all ($result_types_content, MYSQLI_ASSOC);
+    }
+
+    $query_popular_posts = "SELECT title, content, publishedAt, user_id, image, video, link, login, types, avatar
+                               FROM posts p
+                               LEFT JOIN users u ON p.user_id = u.id
+                               LEFT JOIN post_types pt ON p.post_type = pt.id
+                               ORDER BY views DESC
+                               LIMIT 6";
+    $result_popular_posts = mysqli_query ($link, $query_popular_posts);
+
+    if ($result_popular_posts) {
+        $popular_posts = mysqli_fetch_all ($result_popular_posts, MYSQLI_ASSOC);
+    }
+}
+
+// закрываем подключение
 
 function time_delta($post_time){
     $end_ts = strtotime($post_time);
@@ -40,7 +71,7 @@ function time_delta($post_time){
     }
 
 }
-$page_content = include_template('main.php', ['posts' => $posts]);
+$page_content = include_template('/main.php', ['posts' => getPosts($connect, $ind), 'post__type' => getContent($connect), 'ind' => $ind]);
 
 print $layout_content = include_template('layout.php',
     ['user_name' => $user_name,
